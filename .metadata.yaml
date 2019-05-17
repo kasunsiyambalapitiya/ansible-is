@@ -118,3 +118,63 @@ files:
         xpath: "Server/Security/TrustStore/Password"
         current_value: "wso2carbon"
         new_value: "{{ truststore_password }}" 
+  - file_path: "roles/is/templates/carbon-home/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml.j2"
+    relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml"
+    file_type: xml
+    configurations:
+      - operation: replace
+        xpath: "eventPublisher/to/property[@name=\"receiverURL\"]"
+        current_value: "tcp://localhost:7612"
+        new_value: "tcp://{{ is_analytics_hostname }}:7612" 
+  - file_path: "roles/is/templates/carbon-home/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml.j2"
+    relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml"
+    file_type: xml
+    configurations:
+      - operation: replace
+        xpath: "eventPublisher/to/property[@name=\"receiverURL\"]"
+        current_value: "tcp://localhost:7612"
+        new_value: "tcp://{{ is_analytics_hostname }}:7612" 
+  - file_path: "roles/is/templates/carbon-home/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml.j2"
+    relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml"
+    file_type: xml
+    configurations:
+      - operation: replace
+        xpath: "eventPublisher/to/property[@name=\"receiverURL\"]"
+        current_value: "tcp://localhost:7612"
+        new_value: "tcp://{{ is_analytics_hostname }}:7612" 
+  - file_path: "roles/is/templates/carbon-home/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml.j2"
+    relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml"
+    file_type: xml
+    configurations:
+      - operation: replace
+        xpath: "eventPublisher/to/property[@name=\"receiverURL\"]"
+        current_value: "tcp://localhost:7612"
+        new_value: "tcp://{{ is_analytics_hostname }}:7612"
+  - file_path: "roles/is-analytics-dashboard/templates/carbon-home/conf/dashboard/deployment.yaml.j2"
+    relative_path: "{$arg.wso2is-analytics}/conf/dashboard/deployment.yaml"
+    file_type: xml
+    configurations:
+      - operation: replace
+        xpath: "wso2.carbon/id"
+        current_value: "wso2-analytics-is"
+        new_value: "{{ server_id }}"
+      - operation: replace
+        xpath: "wso2.carbon/ports/offset"
+        current_value: "2"
+        new_value: "{{ ports_offset }}"
+      - operation: replace
+        xpath: "databridge.config/workerThreads"
+        current_value: "10"
+        new_value: "{{ worker_threads }}"     
+      - operation: replace
+        xpath: "databridge.config/keyStoreLocation"
+        current_value: "${sys:carbon.home}/resources/security/wso2carbon.jks"
+        new_value: "{{ databridge_config_keystore_location }}"    
+      - operation: replace
+        xpath: "databridge.config/keyStorePassword"
+        current_value: "wso2carbon"
+        new_value: "{{ databridge_config_keystore_password }}"                
+      - operation: replace
+        xpath: "databridge.config/keyStorePassword"
+        current_value: "wso2carbon"
+        new_value: "{{ databridge_config_keystore_password }}"  
